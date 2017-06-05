@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
-  get '/', to: 'home#index'
-  get '/ideas', to: 'home#index'
+  get '/', to: 'ideas#index'
+  get '/ideas', to: 'ideas#index'
 
   resources :home, only: [:index]
-  resources :ideas
+  resources :ideas, only: [:new, :create, :show, :edit, :destroy]
   resources :users, only: [:new, :create]
 
 end
