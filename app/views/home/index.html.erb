@@ -1,0 +1,25 @@
+
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-xs-12'>
+      <% @ideas.each do |idea| %>
+
+        <div class="idea-post">
+          <div class="idea-title">
+            <%= idea.title %>
+          </div>
+          <div class="">
+            <%= idea.description %>
+          </div>
+          <br>
+          <div class ="pull-right">
+            Members: <%= idea.member_count %> |
+            Likes: <%= idea.like_count %>
+          </div>
+          <hr>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
