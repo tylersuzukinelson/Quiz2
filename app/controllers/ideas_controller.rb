@@ -15,7 +15,15 @@ class IdeasController < ApplicationController
   end
 
   def create
+    @idea = Idea.new idea_params
+    @idea.user = current_user
 
+    if @idea.save
+      redirect_to idea_path(@idea), notice: "Successfully created!"
+    else
+      flash.now[:alert] = 'Unable to create!'
+      render :new
+    end
   end
 
 

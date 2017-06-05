@@ -34,8 +34,8 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="/">Sign Up</a></li>
-              <li><a href="/dashboard">Login</a></li>
+              <li><a href="/users/new">Sign Up</a></li>
+              <li><a href="/sessions/new">Login</a></li>
 
             </ul>
 
@@ -43,6 +43,15 @@
         </div><!-- /.container-fluid -->
       </nav>
 
+      <% if flash.any? %>
+         <hr>
+         <% if flash[:notice] %>
+           <div class='alert alert-success'> <%= flash[:notice] %></div>
+           <% elsif flash[:alert] %>
+           <div class='alert alert-danger'> <%= flash[:alert] %></div>
+           <% end %>
+         <hr>
+       <% end %>
 
     <%= yield %>
   </body>
