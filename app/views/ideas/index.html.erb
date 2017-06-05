@@ -6,7 +6,7 @@
 
         <div class="idea-post">
           <div class="idea-title">
-            <%= idea.title %>
+            <%= link_to idea.title, idea_path(idea) %>
           </div>
           <div class="">
             <%= idea.description %>

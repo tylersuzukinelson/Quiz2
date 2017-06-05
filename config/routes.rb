@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   get 'users/create'
 
-  get '/', to: 'ideas#index'
+  get '/', to: 'ideas#index', as: :home
   get '/ideas', to: 'ideas#index'
 
   resources :home, only: [:index]

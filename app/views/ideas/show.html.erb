@@ -15,7 +15,17 @@
             Members: <%= @idea.member_count %> |
             Likes: <%= @idea.like_count %>
           </div>
-          
+
+          <%# if can? :edit, @idea %>
+            <%= link_to 'Delete', idea_path(@idea),
+                                  method: :delete,
+                                  data: {confirm: 'Are you sure?'},
+                                  class: 'btn btn-danger' %>
+
+            <%= link_to 'Edit', edit_idea_path(@idea),
+            class: 'btn btn-success'  %>
+          <%# end %>
+
           <hr>
         </div>
 
