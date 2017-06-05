@@ -12,25 +12,35 @@
           </div>
           <br>
           <div>
-            <div class="pull-left">
-              By <%= @idea.user&.first_name %>
-            </div>
+            <div class='row'>
+              <div class='col-xs-12'>
+                <div class="pull-left">
+                  By <%= @idea.user&.first_name %>
+                </div>
 
-            <div class ="pull-right">
-              Members: <%= @idea.member_count %> |
-              Likes: <%= @idea.like_count %>
+                <div class ="pull-right">
+                  Members: <%= @idea.member_count %> |
+                  Likes: <%= @idea.like_count %>
+                </div>
+
+              </div>
             </div>
           </div>
 
-          <%# if can? :edit, @idea %>
-            <%= link_to 'Delete', idea_path(@idea),
-                                  method: :delete,
-                                  data: {confirm: 'Are you sure?'},
-                                  class: 'btn btn-danger' %>
+          <% if can? :edit, @idea %>
+            <div class='row'>
+              <div class='col-xs-12'>
 
-            <%= link_to 'Edit', edit_idea_path(@idea),
-            class: 'btn btn-success'  %>
-          <%# end %>
+                <%= link_to 'Edit', edit_idea_path(@idea),
+                class: 'btn btn-success'  %>
+
+                <%= link_to 'Delete', idea_path(@idea),
+                method: :delete,
+                data: {confirm: 'Are you sure?'},
+                class: 'btn btn-danger' %>
+              </div>
+            </div>
+          <% end %>
 
         </div>
 
@@ -57,6 +67,22 @@
         <div>
           By <%= review.user&.first_name %>
         </div>
+
+        <% if can? :destroy, review %>
+          <%#= link_to 'Edit', [@idea, review],
+                        method: :patch,
+                        class: 'btn btn-primary' %>
+          <%= link_to 'Delete', [@idea, review],
+                        method: :delete,
+                        data: {confirm: 'Delete review?'},
+                        class: 'btn btn-danger' %>
+        <% end %>
+
+        <% if can? :edit, @idea %>
+          <%= link_to '🚩', [@idea, review],
+                        method: :patch %>
+        <% end %>
+
         <hr>
         <% end %>
 

@@ -13,6 +13,13 @@ class Ability
       user == idea.user
     end
 
+    can [:edit, :destroy], Review do |review|
+      user == review.user
+    end
+
+    can :create, Review do |review|
+      user != review.idea.user
+    end
 
 
 

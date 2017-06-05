@@ -8,6 +8,8 @@ class ReviewsController < ApplicationController
   end
 
   def update
+    @idea = Idea.find(params[:idea_id])
+    @review.idea = @idea 
   end
 
   def create
@@ -27,7 +29,19 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
+    @review = Review.find params[:id]
+    @idea = @review.idea
+    if can? :destroy, @review
+      @review.destroy
+      redirect_to @idea, notice: 'Review deleted'
+    else
+      flash[:alert] = 'Access Denied.'
+      redirect_to @idea
+    end
   end
+
+
+
 
   private
 
