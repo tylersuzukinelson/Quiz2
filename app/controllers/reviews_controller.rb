@@ -9,7 +9,19 @@ class ReviewsController < ApplicationController
 
   def update
     @idea = Idea.find(params[:idea_id])
-    @review.idea = @idea 
+    @review = Review.find(params[:id])
+
+    if can? :edit, @idea
+      @review.update(flag: !@review.flag)
+
+      if @review.flag
+        flash[:alert] = 'Review flagged.'
+      else
+        flash[:notice] = 'Flag removed from review.'
+      end
+      redirect_to @idea
+    end
+
   end
 
   def create
