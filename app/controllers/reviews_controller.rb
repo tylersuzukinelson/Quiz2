@@ -36,7 +36,7 @@ class ReviewsController < ApplicationController
       redirect_to @idea, notice: 'Review created!'
     else
       flash[:alert] = 'Problem creating review.'
-      render home_path
+      redirect_to @idea
     end
   end
 
