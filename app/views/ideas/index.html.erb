@@ -12,9 +12,15 @@
             <%= idea.description %>
           </div>
           <br>
-          <div class ="pull-right">
-            Members: <%= idea.member_count %> |
-            Likes: <%= idea.like_count %>
+          <div>
+            <div class="pull-left">
+              By <%= idea.user&.first_name %>
+            </div>
+
+            <div class ="pull-right">
+              Members: <%= idea.member_count %> |
+              Likes: <%= idea.like_count %>
+            </div>
           </div>
           <hr>
         </div>

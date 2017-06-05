@@ -11,9 +11,15 @@
             <%= @idea.description %>
           </div>
           <br>
-          <div class ="pull-right">
-            Members: <%= @idea.member_count %> |
-            Likes: <%= @idea.like_count %>
+          <div>
+            <div class="pull-left">
+              By <%= @idea.user&.first_name %>
+            </div>
+
+            <div class ="pull-right">
+              Members: <%= @idea.member_count %> |
+              Likes: <%= @idea.like_count %>
+            </div>
           </div>
 
           <%# if can? :edit, @idea %>
@@ -26,8 +32,33 @@
             class: 'btn btn-success'  %>
           <%# end %>
 
-          <hr>
         </div>
+
+
+        <%  if user_signed_in? && current_user != @idea.user %>
+          <h3> Add a Review </h3>
+
+          <%= form_for ([@idea, @review]) do |f| %>
+            <div class="form-group">
+              <%= f.label :body %>
+              <%= f.text_area :body, class: 'form-control' %>
+            </div>
+            <%= f.submit :submit, class: 'btn btn-primary' %>
+          <% end %>
+        <% end %>
+
+        <% @reviews.each do |review| %>
+        <hr>
+
+        <div>
+          <%= review.body %>
+        </div>
+        <br>
+        <div>
+          By <%= review.user&.first_name %>
+        </div>
+        <hr>
+        <% end %>
 
     </div>
   </div>

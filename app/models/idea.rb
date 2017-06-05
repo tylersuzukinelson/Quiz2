@@ -1,4 +1,5 @@
 class Idea < ApplicationRecord
+  has_many :reviews, dependent: :nullify
   belongs_to :user, optional: true
 
   validates :title, presence: true,

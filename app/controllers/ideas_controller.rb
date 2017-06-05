@@ -1,5 +1,4 @@
 class IdeasController < ApplicationController
-  # load_and_authorize_resource
   before_action :authenticate_user!, except:[:index, :show]
   before_action :find_idea, only:[:show, :edit, :update, :destroy]
 
@@ -13,6 +12,8 @@ class IdeasController < ApplicationController
   end
 
   def show
+    @review = Review.new
+    @reviews = @idea.reviews.order(created_at: :desc)
   end
 
   def create
