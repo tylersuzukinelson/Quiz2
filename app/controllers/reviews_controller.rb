@@ -1,6 +1,8 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!, except:[:index, :show]
 
+  # Can refactor similar to IdeasController
+
   def index
   end
 
@@ -53,12 +55,9 @@ class ReviewsController < ApplicationController
   end
 
 
-
-
   private
 
   def review_params
     params.require(:review).permit(:body)
   end
-
 end

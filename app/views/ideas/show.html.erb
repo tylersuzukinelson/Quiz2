@@ -1,94 +1,80 @@
 <div class='container-fluid'>
   <div class='row'>
     <div class='col-xs-12'>
-
-        <div class="idea-post">
-          <div class="idea-title">
-            <%= @idea.title %>
-          </div>
-          <div class="">
-            <%= @idea.description %>
-          </div>
-          <br>
-          <div>
-            <div class='row'>
-              <div class='col-xs-12'>
-                <div class="pull-left">
-                  By <%= @idea.user&.first_name %>
-                </div>
-
-                <div class ="pull-right">
-                  Members: <%= @idea.member_count %> |
-                  Likes: <%= @idea.like_count %>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-          <% if can? :edit, @idea %>
-            <div class='row'>
-              <div class='col-xs-12'>
-
-                <%= link_to 'Edit', edit_idea_path(@idea),
-                class: 'btn btn-success'  %>
-
-                <%= link_to 'Delete', idea_path(@idea),
-                method: :delete,
-                data: {confirm: 'Are you sure?'},
-                class: 'btn btn-danger' %>
-              </div>
-            </div>
-          <% end %>
-
+      <div class="idea-post">
+        <div class="idea-title">
+          <%= @idea.title %>
         </div>
-
-
-        <%  if user_signed_in? && current_user != @idea.user %>
-          <h3> Add a Review </h3>
-
-          <%= form_for ([@idea, @review]) do |f| %>
-            <div class="form-group">
-              <%= f.label :body %>
-              <%= f.text_area :body, class: 'form-control' %>
+        <div>
+          <%= @idea.description %>
+        </div>
+        <br />
+        <div>
+          <div class='row'>
+            <div class='col-xs-12'>
+              <div class="pull-left">
+                By <%= @idea.user&.first_name %>
+              </div>
+              <div class ="pull-right">
+                Members: <%= @idea.member_count %> |
+                Likes: <%= @idea.like_count %>
+              </div>
             </div>
-            <%= f.submit :submit, class: 'btn btn-primary' %>
-          <% end %>
+          </div>
+        </div>
+        <% if can? :edit, @idea %>
+          <div class='row'>
+            <div class='col-xs-12'>
+              <%= link_to 'Edit', edit_idea_path(@idea), class: 'btn btn-success' %>
+              <%= link_to 'Delete',
+                    idea_path(@idea),
+                    method: :delete,
+                    data: {confirm: 'Are you sure?'},
+                    class: 'btn btn-danger' %>
+            </div>
+          </div>
         <% end %>
-
-        <% @reviews.each do |review| %>
-        <hr>
+      </div>
+      <% if user_signed_in? && current_user != @idea.user %>
+        <h3>Add a Review</h3>
+        <%= form_for(@idea, @review) do |f| %>
+          <div class="form-group">
+            <%= f.label :body %>
+            <%= f.text_area :body, class: 'form-control' %>
+          </div>
+          <%= f.submit :submit, class: 'btn btn-primary' %>
+        <% end %>
+      <% end %>
+      <% @reviews.each do |review| %>
+        <hr />
         <% if review.flag %>
           <div>
             🚩 Flagged Review 🚩
           </div>
-          <% end %>
+        <% end %>
         <div>
           <%= review.body %>
         </div>
-        <br>
+        <br />
         <div>
           By <%= review.user&.first_name %>
         </div>
-
         <% if can? :destroy, review %>
           <%#= link_to 'Edit', [@idea, review],
                         method: :patch,
                         class: 'btn btn-primary' %>
-          <%= link_to 'Delete', [@idea, review],
-                        method: :delete,
-                        data: {confirm: 'Delete review?'},
-                        class: 'btn btn-danger' %>
+          <%= link_to 'Delete',
+                [@idea, review],
+                method: :delete,
+                data: {confirm: 'Delete review?'},
+                class: 'btn btn-danger' %>
         <% end %>
-
         <% if can? :edit, @idea %>
-          <%= link_to 'Toggle Flag', [@idea, review],
-                        method: :patch %>
+          <%= link_to 'Toggle Flag',
+                [@idea, review],
+                method: :patch %>
         <% end %>
-
-        <% end %>
-
-
+      <% end %>
     </div>
   </div>
 </div>
