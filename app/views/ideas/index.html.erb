@@ -15,7 +15,16 @@
           <div>
             <div class="pull-left">
               By <%= idea.user&.first_name %>
+
             </div>
+            <% if user_signed_in? %>
+            <div>
+
+              <%= form_tag ideas_like_path(idea), method: :patch do %>
+              &nbsp <%= submit_tag '❤️' %>
+              <% end %>
+            </div>
+            <% end %>
 
             <div class ="pull-right">
               Members: <%= idea.member_count %> |

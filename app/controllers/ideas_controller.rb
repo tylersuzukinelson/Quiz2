@@ -1,6 +1,8 @@
+require 'json'
+
 class IdeasController < ApplicationController
   before_action :authenticate_user!, except:[:index, :show]
-  before_action :find_idea, only:[:show, :edit, :update, :destroy]
+  before_action :find_idea, only:[:show, :edit, :update, :destroy, :like]
 
 
   def index
@@ -54,6 +56,19 @@ class IdeasController < ApplicationController
     else
       flash[:alert] = 'Access Denied. You are not authorized to delete this Idea.'
       redirect_to ideas_path
+    end
+  end
+
+  def like
+    if !session.has_key?(@idea.id)
+      @idea.increment(:like_count)
+        if @idea.save
+          redirect_to ideas_path
+          session[@idea.id] = @idea.id
+        end
+      # session[:like] = true
+    else
+    flash.now[:notice] = 'Already liked!'
     end
   end
 
