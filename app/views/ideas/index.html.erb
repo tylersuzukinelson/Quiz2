@@ -49,44 +49,50 @@
 </div> <!-- close modal row-->
 <% end %>
 
-
-  <div class='row'>
-    <div class='col-xs-12'>
-      <% @ideas.each do |idea| %>
-
-        <div class="idea-post">
-          <div class="idea-title">
-            <%= link_to idea.title, idea_path(idea) %>
-          </div>
-          <div class="idea-body">
-            <%= idea.description %>
-
-          <br>
-          <div class='post-info'>
-            <br>
-            <div class="pull-left">
-              By <%= idea.user&.first_name %>
-
+      <% @ideas.each_with_index do |idea, i| %>
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading<%= i %>">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-target="#post<%= i %>" data-parent="#accordion" aria-expanded="true" aria-controls="post<%= i %>">
+                  <%= idea.title %>
+                </a>
+              </h4>
             </div>
-            <% if user_signed_in? %>
-            <div>
+            <div id="post<%= i %>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%= i %>" >
+              <div class="panel-body">
+                <div>
+                  <%= link_to idea_path(idea) do %>
+                    <%= idea.description %>
+                  <% end %>
+                </div>
 
-              <%= form_tag ideas_like_path(idea), method: :patch do %>
-              &nbsp <%= submit_tag '❤️' %>
-              <% end %>
-            </div>
-            <% end %>
+                <div>
+                  <div class='pull-left'>
+                    By <%= idea.user&.first_name %>
+                  </div>
 
-            <div class ="pull-right">
-              Members: <%= idea.member_count %> |
-              Likes: <%= idea.like_count %>
+                  <% if user_signed_in? %>
+                    <div>
+                      <%= form_tag ideas_like_path(idea), method: :patch do %>
+                      &nbsp <%= submit_tag '❤️' %>
+                      <% end %>
+                    </div>
+                  <% end %>
+
+                  <div class ="pull-right">
+                    Members: <%= idea.member_count %> |
+                    Likes: <%= idea.like_count %>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
-          </div>
-          <hr>
         </div>
-
       <% end %>
-    </div>
-  </div>
+
+
+
+
 </div>
