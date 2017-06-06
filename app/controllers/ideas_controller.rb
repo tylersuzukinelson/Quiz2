@@ -6,6 +6,7 @@ class IdeasController < ApplicationController
 
 
   def index
+    @idea = Idea.new
     @ideas = Idea.order(created_at: :desc)
   end
 
@@ -66,9 +67,8 @@ class IdeasController < ApplicationController
           redirect_to ideas_path
           session[@idea.id] = @idea.id
         end
-      # session[:like] = true
     else
-    flash.now[:notice] = 'Already liked!'
+      flash.now[:notice] = 'Already liked!'
     end
   end
 
